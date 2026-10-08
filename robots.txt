@@ -1,0 +1,10 @@
+# 어흥!한자 — 웹 빌드
+# 주소는 lib/app_links.dart의 kWebAppUrl과 같은 값이어야 한다
+# (test/app_links_test.dart가 확인한다).
+#
+# 크롤러는 robots.txt를 도메인 루트에서만 읽는다. 웹 앱은 2026-10-08부터
+# hanja-app.sunw.kr 루트에 배포되므로 이 파일이 유효하다. 공식 소개 사이트(hanja.sunw.kr)와는 별도다.
+User-agent: *
+Allow: /
+
+Sitemap: https://hanja-app.sunw.kr/sitemap.xml

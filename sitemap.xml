@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  검색엔진에 알릴 주소 목록. Flutter Web은 SPA라 앱 안쪽 화면은 크롤러가 읽지
+  못한다 — 정적으로 존재하는 문서만 싣는다(앱 진입점 1개 + 개인정보 처리방침).
+  주소는 lib/app_links.dart의 kWebAppUrl과 같은 값이어야 한다.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://hanja-app.sunw.kr/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://hanja-app.sunw.kr/privacy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>

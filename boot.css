@@ -1,0 +1,216 @@
+/* Flutter 시작 전에도 DESIGN.md의 Ink·크림·피치·오렌지와 Pretendard를 쓴다. */
+@font-face {
+  font-family: BootPretendard;
+  src: url('boot-font-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: BootPretendard;
+  src: url('boot-font-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+body { margin: 0; }
+#boot {
+  --boot-ink: #000000;
+  --boot-paper: #FDF3EA;
+  --boot-peach: #FBD3A8;
+  --boot-orange: #F57C1C;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: auto;
+  color: var(--boot-ink);
+  background: var(--boot-paper);
+  font-family: BootPretendard, 'Apple SD Gothic Neo', sans-serif;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  scrollbar-color: var(--boot-ink) var(--boot-paper);
+}
+#boot *, #boot *::before, #boot *::after { box-sizing: border-box; }
+#boot ::selection { background: var(--boot-peach); color: var(--boot-ink); }
+.boot-shell {
+  min-height: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: max(32px, env(safe-area-inset-top)) 24px max(32px, env(safe-area-inset-bottom));
+}
+.boot-scene { margin: auto 0; padding: 24px 0 32px; }
+.boot-title-group { position: relative; z-index: 1; }
+/* 제목은 디자인 레터링 PNG 두 장 — 어흥!(주황) 위, 한자(검정) 아래. 온보딩 스플래시와 같은 배치. */
+#boot-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+#boot-title img { display: block; height: auto; user-select: none; -webkit-user-drag: none; }
+.boot-title-roar { width: min(340px, 72vw); transform-origin: 50% 80%; }
+.boot-title-hanja { width: min(176px, 37vw); }
+.boot-tagline { margin: 16px 0 0; font-size: 17px; line-height: 1.5; }
+#boot-greet {
+  display: block;
+  position: relative;
+  width: min(320px, 100%);
+  aspect-ratio: 1 / 1;
+  margin: 32px auto 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 48%;
+  background: transparent;
+  color: var(--boot-ink);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  isolation: isolate;
+}
+#boot-greet:disabled { cursor: default; }
+#boot-greet:disabled ~ #boot-play-hint { visibility: hidden; }
+#boot-greet:focus-visible, #boot-retry:focus-visible {
+  outline: 3px solid var(--boot-ink);
+  outline-offset: 6px;
+}
+.boot-sun {
+  position: absolute;
+  inset: 16% 9% 6%;
+  border-radius: 46% 54% 51% 49% / 49% 45% 55% 51%;
+  background: var(--boot-peach);
+  transform: rotate(-12deg);
+}
+.boot-sun::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border: 1px solid var(--boot-paper);
+  border-radius: inherit;
+}
+.boot-trails { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--boot-orange); }
+.boot-character-wrap {
+  position: absolute;
+  inset: 17% 10% 0 3%;
+  transform-origin: 50% 85%;
+  animation: boot-arrive 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.boot-tiger {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: 50% 85%;
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.boot-magpie {
+  position: absolute;
+  width: 32%;
+  height: 32%;
+  object-fit: contain;
+  right: 0;
+  top: 0;
+  transform: rotate(9deg);
+  animation: boot-land 750ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.boot-ripple {
+  position: absolute;
+  inset: 15% 8% 6%;
+  border: 2px solid var(--boot-orange);
+  border-radius: 50%;
+  opacity: 0;
+}
+.boot-roar {
+  position: absolute;
+  left: 2%;
+  top: 7%;
+  padding: 10px 16px;
+  border: 2px solid var(--boot-ink);
+  border-radius: 50%;
+  background: #FFFFFF;
+  font: 700 23px/1.2 BootPretendard, sans-serif;
+  transform: rotate(-12deg) scale(0.8);
+  opacity: 0;
+}
+#boot-play-hint { margin: 8px 0 0; font-size: 13px; line-height: 1.5; }
+.boot-loading { width: 100%; max-width: 360px; margin: 0 auto; }
+.boot-paws { display: flex; gap: 7px; justify-content: center; height: 16px; align-items: center; }
+.boot-paws i { width: 7px; height: 7px; border-radius: 50%; background: var(--boot-ink); animation: boot-wait 1.35s ease-in-out infinite; }
+.boot-paws i:nth-child(2) { animation-delay: 150ms; }
+.boot-paws i:nth-child(3) { animation-delay: 300ms; }
+#boot-msg { margin: 14px 0 0; font-size: 14px; line-height: 1.65; word-break: keep-all; overflow-wrap: anywhere; }
+#boot-retry {
+  min-height: 48px;
+  min-width: 144px;
+  margin-top: 20px;
+  padding: 12px 24px;
+  border: 2px solid var(--boot-ink);
+  border-radius: 16px;
+  background: var(--boot-ink);
+  color: #FFFFFF;
+  cursor: pointer;
+  font: 700 16px/1.4 BootPretendard, sans-serif;
+  touch-action: manipulation;
+  transition: transform 150ms ease-out;
+}
+#boot-retry[hidden] { display: none; }
+#boot-retry:active { transform: scale(0.96); }
+.boot-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* 클릭 한 번에 인사 한 번. 자동 연출은 등장만, 로딩 중에는 점 세 개만 움직인다. */
+#boot.is-roaring .boot-tiger { animation: boot-roar 650ms ease-out; }
+#boot.is-roaring .boot-magpie { animation: boot-flutter 650ms ease-out; }
+#boot.is-roaring .boot-roar { animation: boot-say 650ms ease-out; }
+#boot.is-roaring .boot-ripple { animation: boot-wave 650ms ease-out; }
+#boot.is-roaring .boot-title-roar { animation: boot-emphasis 650ms ease-out; }
+#boot[data-paused='true'] * { animation-play-state: paused !important; }
+#boot[data-state='error'] .boot-paws i { animation: none; }
+#boot[data-state='error'] .boot-paws i:not(:first-child) { display: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  #boot-greet:not(:disabled):hover .boot-tiger { transform: rotate(-3deg) translateY(-4px); }
+}
+@media (min-width: 760px) and (min-height: 540px) {
+  .boot-scene { display: flex; align-items: center; justify-content: center; gap: 56px; }
+  .boot-title-group { text-align: left; }
+  #boot-title { align-items: flex-start; }
+  #boot-greet { margin: 0; flex-shrink: 0; }
+  #boot-play-hint { position: absolute; margin-top: 390px; }
+  .boot-shell { padding-bottom: 48px; }
+}
+@media (max-height: 620px) {
+  .boot-shell { padding-top: max(20px, env(safe-area-inset-top)); padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+  .boot-scene { padding-top: 8px; padding-bottom: 24px; }
+  .boot-title-roar { width: min(260px, 60vw); }
+  .boot-title-hanja { width: min(136px, 31vw); }
+  .boot-tagline { margin-top: 10px; font-size: 15px; }
+  #boot-greet { width: 224px; margin-top: 16px; }
+}
+@media (max-height: 440px) and (min-width: 540px) {
+  .boot-scene { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 32px; padding-bottom: 12px; }
+  #boot-greet { width: 168px; margin: 0; }
+  #boot-play-hint { flex-basis: 100%; margin: 0; }
+  #boot-msg { margin-top: 8px; }
+}
+@keyframes boot-arrive { from { opacity: 0.65; transform: translateY(18px) rotate(-6deg) scale(0.94); } to { opacity: 1; transform: none; } }
+@keyframes boot-land { from { opacity: 0.6; transform: translate(18px, -18px) rotate(20deg); } to { opacity: 1; transform: rotate(9deg); } }
+@keyframes boot-wait { 0%, 65%, 100% { transform: scale(1); } 30% { transform: scale(1.5); } }
+@keyframes boot-roar { 0%, 100% { transform: none; } 25% { transform: rotate(-7deg) scale(1.07); } 60% { transform: rotate(3deg) scale(1.02); } }
+@keyframes boot-flutter { 0%, 100% { transform: rotate(9deg); } 30% { transform: translateY(-14px) rotate(-9deg); } 65% { transform: translateY(-5px) rotate(13deg); } }
+@keyframes boot-say { 0%, 100% { opacity: 0; transform: rotate(-12deg) scale(0.8); } 20%, 75% { opacity: 1; transform: rotate(-12deg) scale(1); } }
+@keyframes boot-wave { from { opacity: 0.6; transform: scale(0.86); } to { opacity: 0; transform: scale(1.22); } }
+@keyframes boot-emphasis { 0%, 100% { transform: none; } 30% { transform: rotate(-3deg) translateY(-6px) scale(1.04); } 65% { transform: rotate(2deg); } }
+@media (prefers-reduced-motion: reduce) {
+  #boot *, #boot *::before, #boot *::after { animation: none !important; transition: none !important; }
+  #boot-greet:not(:disabled):hover .boot-tiger { transform: none; }
+  #boot.is-roaring .boot-roar { opacity: 1; transform: none; }
+}
+@media (forced-colors: active) {
+  #boot { background: Canvas; color: CanvasText; }
+  #boot-greet, #boot-retry { border: 2px solid ButtonText; }
+  #boot-retry { background: ButtonFace; color: ButtonText; }
+  .boot-sun, .boot-trails, .boot-ripple { display: none; }
+  .boot-paws i { background: CanvasText; }
+}
