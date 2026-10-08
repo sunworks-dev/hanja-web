@@ -13,7 +13,7 @@
   var NOTICE_AT = 'hanja_update_fail_notice_at';
   var DAY = 24 * 60 * 60 * 1000;
   // stamp가 산출물 총 바이트로 바꾼다. 개발 서버에서는 0이라 100MB로 어림한다.
-  var NEEDED_BYTES = 68684055;
+  var NEEDED_BYTES = 68684230;
 
   var st = (window.hanjaOffline = {
     state: 'checking',
